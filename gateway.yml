@@ -1,0 +1,42 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: service-shuffle
+        uri: lb://service-shuffle
+        predicates:
+        - Path=/service-shuffle/**
+        filters:
+        - RewritePath=/service-shuffle/(?<segment>.*), /$\{segment}
+        - name: Hystrix
+          args:
+            name: monitor-service-shuffle
+            fallbackUri: forward:/fallback/service-shuffle
+      - id: service-log
+        uri: lb://service-log
+        predicates:
+        - Path=/service-log/**
+        filters:
+        - RewritePath=/service-log/(?<segment>.*), /$\{segment}
+        - name: Hystrix
+          args:
+            name: monitor-service-log
+            fallbackUri: forward:/fallback/service-log  
+    consul:
+      discovery:
+        instanceId: Gateway
+        health-check-interval: 5s
+      config:
+        management: 
+          enabled: true
+management:
+  security: 
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream, info, health
+     
