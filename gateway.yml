@@ -8,26 +8,26 @@ spring:
         locator:
           enabled: true
       routes:
-      - id: service-shuffle
-        uri: lb://service-shuffle
+      - id: serviceShuffle
+        uri: lb://service-Shuffle
         predicates:
-        - Path=/service-shuffle/**
+        - Path=/shuffle/**
         filters:
-        - RewritePath=/service-shuffle/(?<segment>.*), /$\{segment}
+        - RewritePath=/shuffle/(?<segment>.*), /$\{segment}
         - name: Hystrix
           args:
-            name: monitor-service-shuffle
-            fallbackUri: forward:/fallback/service-shuffle
-      - id: service-log
-        uri: lb://service-log
+            name: monitor-shuffle
+            fallbackUri: forward:/fallback/serviceShuffle
+      - id: serviceLog
+        uri: lb://service-Log
         predicates:
-        - Path=/service-log/**
+        - Path=/log/**
         filters:
         - RewritePath=/service-log/(?<segment>.*), /$\{segment}
         - name: Hystrix
           args:
-            name: monitor-service-log
-            fallbackUri: forward:/fallback/service-log  
+            name: monitor-log
+            fallbackUri: forward:/fallback/serviceLog  
     consul:
       discovery:
         instanceId: Gateway
