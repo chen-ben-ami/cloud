@@ -10,8 +10,8 @@ spring:
 management:
   security: 
     enabled: false
-project:
-  cloud:
-    log: 
+project:  
+  cloud:  
+    log:  
       uri:  log
       hostname: service-log
