@@ -17,7 +17,7 @@ spring:
         - name: Hystrix
           args:
             name: monitor-shuffle
-            fallbackUri: forward:/fallback/serviceShuffle
+            fallbackUri: forward:/fallback/service-Shuffle
       - id: serviceLog
         uri: lb://service-Log
         predicates:
@@ -27,7 +27,7 @@ spring:
         - name: Hystrix
           args:
             name: monitor-log
-            fallbackUri: forward:/fallback/serviceLog  
+            fallbackUri: forward:/fallback/service-Log  
     consul:
       discovery:
         instanceId: Gateway
