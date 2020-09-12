@@ -11,7 +11,7 @@ spring:
       - id: serviceShuffle
         uri: lb://service-Shuffle
         predicates:
-        - Path=/shuffle/**
+        - Path=/service-Shuffle/**
         filters:
         - RewritePath=/shuffle/(?<segment>.*), /$\{segment}
         - name: Hystrix
@@ -21,9 +21,9 @@ spring:
       - id: serviceLog
         uri: lb://service-Log
         predicates:
-        - Path=/log/**
+        - Path=/service-Log/**
         filters:
-        - RewritePath=/service-log/(?<segment>.*), /$\{segment}
+        - RewritePath=/service-Log/(?<segment>.*), /$\{segment}
         - name: Hystrix
           args:
             name: monitor-log
